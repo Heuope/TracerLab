@@ -2,41 +2,48 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace Tracer
 {
     class Tracer : ITracer
     {
-        private Stopwatch stopwatch;
-
         private ConcurrentDictionary<int, Stopwatch> stopwatches = new ConcurrentDictionary<int, Stopwatch>();
         private ConcurrentDictionary<int, ThreadResult> threadResults = new ConcurrentDictionary<int, ThreadResult>();
 
-        public TraceResult[] GetTraceResult()
+        public ThreadResult[] GetTraceResult()
         {
-            return null;
+            var temp = new List<ThreadResult>();
+
+            foreach (var item in threadResults.Values)
+            {
+                temp.Add(item);
+            }
+
+            return temp.ToArray();
         }
 
         public void StartTrace()
         {
             int threadId = Thread.CurrentThread.ManagedThreadId;
+
             if (!threadResults.ContainsKey(threadId))
             {
                 var threadResult = new ThreadResult();
                 threadResults.TryAdd(threadId, threadResult);
             }
 
-            var st = new StackTrace();
-            MethodBase tracedMethod = st.GetFrame(1).GetMethod();            
+            var stackTrace = new StackTrace();
+            MethodBase tracedMethod = stackTrace.GetFrame(1).GetMethod();            
 
             var temp = new TraceResult(tracedMethod.Name, tracedMethod.DeclaringType.Name);
-            int hash = tracedMethod.GetHashCode();
 
-            threadResults[threadId].AddTraceResult(temp, threadResults[threadId].Level, hash);
-            threadResults[threadId].Level++;
+            threadResults[threadId].AddTraceResult(temp);
 
-            stopwatch = new Stopwatch();
-            stopwatches.TryAdd(hash, stopwatch);
+            var stopwatch = new Stopwatch();
+
+            stopwatches.TryAdd(tracedMethod.GetHashCode(), stopwatch);
+
             stopwatch.Start();       
         }
 
@@ -54,10 +61,9 @@ namespace Tracer
 
             stopwatch.Stop();
 
-            threadResults[threadId].SetTime(hash, stopwatch.ElapsedMilliseconds);
-            threadResults[threadId].Level--;
+            threadResults[threadId].SetTime(stopwatch.ElapsedMilliseconds);
 
-            //stopwatches.TryRemove(hash, out stopwatch);
+            //stopwatches.TryRemove(hash, out _);
         }
     }
 }

@@ -19,6 +19,16 @@ namespace Tracer
             _tracer.StartTrace();
 
             Thread.Sleep(156);
+            M3();
+
+            _tracer.StopTrace();
+        }
+
+        private void M3()
+        {
+            _tracer.StartTrace();
+
+            Thread.Sleep(13);
 
             _tracer.StopTrace();
         }

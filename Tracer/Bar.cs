@@ -25,7 +25,11 @@ namespace Tracer
 
             foreach (var item in _tracer.GetTraceResult())
             {
-                Console.WriteLine($"{item.ClassMethodName} {item.MethodName} {item.Time}");
+                Console.WriteLine($"{item.ThreadId}");
+                foreach (var method in item.MethodList)
+                {
+                    Console.WriteLine($"{method.ClassMethodName} {method.MethodName} {method.Time}");
+                }
             }
         }
 

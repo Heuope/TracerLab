@@ -10,7 +10,7 @@ namespace Tracer
 
         public string ClassMethodName { get; private set; }
 
-        private List<TraceResult> _tracerResults = new List<TraceResult>();
+        public List<TraceResult> TracerResults = new List<TraceResult>();
 
         public TraceResult(string methodName, string classMethodName)
         {

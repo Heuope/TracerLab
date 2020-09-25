@@ -7,39 +7,32 @@ namespace Tracer
     {
         public int ThreadId { get; private set; }
 
-        public int Level { get; set; }
+        public List<TraceResult> MethodList = new List<TraceResult>();
 
-        private List<TraceResult> traceResults = new List<TraceResult>();
-
-        private Dictionary<int, TraceResult> traceTable = new Dictionary<int, TraceResult>();
+        private Stack<TraceResult> methodStack = new Stack<TraceResult>();
 
         public ThreadResult()
         {
             ThreadId = Thread.CurrentThread.ManagedThreadId;
-            Level = 0;
         }
 
-        public void AddTraceResult(TraceResult traceResult, int level, int hash)
+        public void AddTraceResult(TraceResult traceResult)
         {
-            traceTable.Add(hash, traceResult);
-            AddTraceResultRec(traceResult, level);
-        }
-
-        public void SetTime(int hash, long time)
-        {
-            traceTable[hash].Time = time;
-        }
-
-        private void AddTraceResultRec(TraceResult traceResult, int level)
-        {
-            if (level == 0)
+            if(methodStack.Count == 0)
             {
-                traceResults.Add(traceResult);
+                MethodList.Add(traceResult);
             }
             else
             {
-                AddTraceResultRec(traceResult, level - 1);
+                methodStack.Peek().TracerResults.Add(traceResult);
             }
+            methodStack.Push(traceResult);
+        }
+
+        public void SetTime(long time)
+        {
+            TraceResult t = methodStack.Pop();
+            t.Time = time;
         }
     }
 }
