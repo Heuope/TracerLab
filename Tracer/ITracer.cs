@@ -10,6 +10,6 @@ namespace Tracer
 
         void StopTrace();
 
-        TraceResults[] GetTraceResult();
+        TraceResult[] GetTraceResult();
     }
 }
