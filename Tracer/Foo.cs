@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using TracerLib;
 
-namespace Tracer
+namespace TracerLab
 {
     class Foo
     {

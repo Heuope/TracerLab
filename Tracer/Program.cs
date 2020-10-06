@@ -1,7 +1,9 @@
 ﻿using System;
-using System.Threading;
+using System.Collections.Generic;
+using System.Text;
+using TracerLib;
 
-namespace Tracer
+namespace TracerLab
 {
     class Program
     {

@@ -4,9 +4,9 @@ using System.Reflection;
 using System.Threading;
 using System.Collections.Generic;
 
-namespace Tracer
+namespace TracerLib
 {
-    class Tracer : ITracer
+    public class Tracer : ITracer
     {
         private ConcurrentDictionary<int, Stopwatch> stopwatches = new ConcurrentDictionary<int, Stopwatch>();
         private ConcurrentDictionary<int, ThreadResult> threadResults = new ConcurrentDictionary<int, ThreadResult>();

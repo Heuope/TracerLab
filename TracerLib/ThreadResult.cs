@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 
-namespace Tracer
+namespace TracerLib
 {
-    class ThreadResult
+    public class ThreadResult
     {
         public int ThreadId { get; private set; }
 
         public List<TraceResult> MethodList = new List<TraceResult>();
 
-        private Stack<TraceResult> methodStack = new Stack<TraceResult>();
+        public Stack<TraceResult> methodStack = new Stack<TraceResult>();
 
         public ThreadResult()
         {

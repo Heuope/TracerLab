@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Tracer
+namespace TracerLib
 {
-    class TraceResult
+    public class TraceResult
     {
         public long Time { get; set; }
 
