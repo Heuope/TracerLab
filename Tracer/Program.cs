@@ -21,8 +21,19 @@ namespace TracerLab
             var json = new JsonSerialize();
             var jsonString = json.Serialize(tracer);
 
-            var fileSaver = new OutputToFile("test.json");
-            fileSaver.OutputResult(jsonString);
+            var xml = new XmlSerialize();
+            var xmlString = xml.Serialize(tracer);
+
+            var outputToConsole = new OutputToConsole();
+
+            outputToConsole.OutputResult(jsonString);
+            outputToConsole.OutputResult(xmlString);
+
+            var fileSaverJson = new OutputToFile("test.json");
+            var fileSaverXml = new OutputToFile("test.xml");
+
+            fileSaverJson.OutputResult(jsonString);
+            fileSaverXml.OutputResult(xmlString);
         }
     }
 }

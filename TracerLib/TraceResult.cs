@@ -7,11 +7,13 @@ namespace TracerLib
     {
         public long Time { get; set; }
 
-        public string MethodName { get; private set; }
+        public string MethodName { get; set; }
 
-        public string ClassMethodName { get; private set; }
+        public string ClassMethodName { get; set; }
 
         public List<TraceResult> Methods = new List<TraceResult>();
+
+        public TraceResult() { }
 
         public TraceResult(string methodName, string classMethodName)
         {

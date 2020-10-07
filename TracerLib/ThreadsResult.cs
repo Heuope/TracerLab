@@ -8,6 +8,11 @@ namespace TracerLib
     {
         public ThreadResult[] ThreadResults { get; set; }
 
+        public ThreadsResult() 
+        {
+            
+        }
+
         public ThreadsResult(ThreadResult[] threadResults)
         {
             this.ThreadResults = threadResults;

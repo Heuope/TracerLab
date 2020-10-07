@@ -6,9 +6,9 @@ namespace TracerLib
 {
     public class ThreadResult
     {
-        public int ThreadId { get; private set; }
+        public int ThreadId { get; set; }
 
-        public long ElapsedTime { get; private set; }
+        public long ElapsedTime { get; set; }
 
         public List<TraceResult> MethodList { get; private set; }
 

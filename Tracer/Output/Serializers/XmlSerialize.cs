@@ -9,7 +9,7 @@ namespace TracerLab
     {
         public string Serialize(ITracer tracer)
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ThreadResult[]));
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ThreadsResult));
 
             using (StringWriter textWriter = new StringWriter())
             {
