@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TracerLib
 {
@@ -10,7 +11,7 @@ namespace TracerLib
 
         public string ClassMethodName { get; private set; }
 
-        public List<TraceResult> TracerResults = new List<TraceResult>();
+        public List<TraceResult> Methods = new List<TraceResult>();
 
         public TraceResult(string methodName, string classMethodName)
         {

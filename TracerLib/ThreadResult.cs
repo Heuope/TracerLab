@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace TracerLib
@@ -7,13 +8,21 @@ namespace TracerLib
     {
         public int ThreadId { get; private set; }
 
-        public List<TraceResult> MethodList = new List<TraceResult>();
+        public long ElapsedTime { get; private set; }
 
-        public Stack<TraceResult> methodStack = new Stack<TraceResult>();
+        public List<TraceResult> MethodList { get; private set; }
+
+        private Stack<TraceResult> methodStack = new Stack<TraceResult>();
 
         public ThreadResult()
         {
+            MethodList = new List<TraceResult>();
             ThreadId = Thread.CurrentThread.ManagedThreadId;
+        }
+
+        public void CalculatedElapsedTime()
+        {
+            ElapsedTime = MethodList.Sum(method => method.Time);
         }
 
         public void AddTraceResult(TraceResult traceResult)
@@ -24,7 +33,7 @@ namespace TracerLib
             }
             else
             {
-                methodStack.Peek().TracerResults.Add(traceResult);
+                methodStack.Peek().Methods.Add(traceResult);
             }
             methodStack.Push(traceResult);
         }

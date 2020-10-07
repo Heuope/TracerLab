@@ -11,16 +11,17 @@ namespace TracerLib
         private ConcurrentDictionary<int, Stopwatch> stopwatches = new ConcurrentDictionary<int, Stopwatch>();
         private ConcurrentDictionary<int, ThreadResult> threadResults = new ConcurrentDictionary<int, ThreadResult>();
 
-        public ThreadResult[] GetTraceResult()
+        public ThreadsResult GetTraceResult()
         {
             var temp = new List<ThreadResult>();
 
             foreach (var item in threadResults.Values)
             {
+                item.CalculatedElapsedTime();
                 temp.Add(item);
             }
 
-            return temp.ToArray();
+            return new ThreadsResult(temp.ToArray());
         }
 
         public void StartTrace()
@@ -63,7 +64,7 @@ namespace TracerLib
 
             threadResults[threadId].SetTime(stopwatch.ElapsedMilliseconds);
 
-            //stopwatches.TryRemove(hash, out _);
+            stopwatches.TryRemove(hash, out _);
         }
     }
 }

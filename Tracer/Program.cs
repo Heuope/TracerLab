@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading;
 using TracerLib;
+using TracerLab;
 
 namespace TracerLab
 {
@@ -9,9 +8,21 @@ namespace TracerLab
     {
         static void Main(string[] args)
         {
-            var test = new Bar(new Tracer());
+            var tracer = new Tracer();
+
+            var test = new Bar(tracer);
 
             test.MyMehtod();
+
+            var thread = new Thread(() => test.MyMehtod());
+            thread.Start();
+            thread.Join();
+
+            var json = new JsonSerialize();
+            var jsonString = json.Serialize(tracer);
+
+            var fileSaver = new OutputToFile("test.json");
+            fileSaver.OutputResult(jsonString);
         }
     }
 }

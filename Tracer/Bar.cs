@@ -21,22 +21,14 @@ namespace TracerLab
 
             M1();
             M2();
-
-            foreach (var item in _tracer.GetTraceResult())
-            {
-                Console.WriteLine($"{item.ThreadId}");
-                foreach (var method in item.MethodList)
-                {
-                    Console.WriteLine($"{method.ClassMethodName} {method.MethodName} {method.Time}");
-                }
-            }
+            M3();
         }
 
         private void M1()
         {
             _tracer.StartTrace();
 
-            Thread.Sleep(130);
+            Thread.Sleep(20);
 
             _tracer.StopTrace();
         }
@@ -45,7 +37,16 @@ namespace TracerLab
         {
             _tracer.StartTrace();
 
-            Thread.Sleep(12);
+            Thread.Sleep(20);
+
+            _tracer.StopTrace();
+        }
+
+        private void M3()
+        {
+            _tracer.StartTrace();
+
+            Thread.Sleep(20);
 
             _tracer.StopTrace();
         }

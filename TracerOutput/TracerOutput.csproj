@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TracerLib\TracerLib.csproj" />
+    <ProjectReference Include="..\TracerLibb\TracerLib.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,6 +6,6 @@
 
         void StopTrace();
 
-        ThreadResult[] GetTraceResult();
+        ThreadsResult GetTraceResult();
     }
 }
